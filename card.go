@@ -11,8 +11,10 @@ const (
 	Diamond
 	Club
 	Heart
-	Joker
+	Joker // This is a special case...
 )
+
+var suits = [...]Suit{Spade, Diamond, Club, Heart}
 
 // Rank holds the 13 different card ranks in a set of playing cards.
 type Rank uint8
@@ -34,10 +36,24 @@ const (
 	King
 )
 
+const minRank = Ace
+const maxRank = King
+
 // Card consists of a suit and a rank
 type Card struct {
 	Suit
 	Rank
+}
+
+func New() []Card {
+	var cards []Card
+	for _, suit := range suits {
+		for rank := minRank; rank <= maxRank; rank++ {
+			cards = append(cards, Card{Suit: suit, Rank: rank})
+		}
+	}
+
+	return cards
 }
 
 func (c Card) String() string {
