@@ -3,7 +3,9 @@ package deck
 
 import (
 	"fmt"
+	"math/rand"
 	"sort"
+	"time"
 )
 
 // Suit holds the four suits of a normal set of playing cards.
@@ -83,4 +85,14 @@ func (c Card) String() string {
 
 func absRank(c Card) int {
 	return int(c.Suit)*int(maxRank) + int(c.Rank)
+}
+
+func Shuffle(cards []Card) []Card {
+	ret := make([]Card, len(cards))
+	r := rand.New(rand.NewSource(time.Now().Unix()))
+	perm := r.Perm(len(cards))
+	for i, j := range perm {
+		ret[i] = cards[j]
+	}
+	return cards
 }
