@@ -96,3 +96,15 @@ func Shuffle(cards []Card) []Card {
 	}
 	return cards
 }
+
+func Jokers(n int) func([]Card) []Card {
+	return func(cards []Card) []Card {
+		for i := 0; i < n; i++ {
+			cards = append(cards, Card{
+				Rank: Rank(i),
+				Suit: Joker,
+			})
+		}
+		return cards
+	}
+}
